@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CBT Bahasa Indonesia Kelas 4 - Bab 3</title>
+    <style>
+        body {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #dc2626 0%, #ea580c 50%, #f97316 100%);
+            min-height: 100%;
+            color: white;
+        }
+        
+        html {
+            height: 100%;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100%;
+        }
+        
+        .login-screen {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100%;
+            text-align: center;
+        }
+        
+        .login-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            max-width: 400px;
+            width: 100%;
+        }
+        
+        .login-card h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .login-card p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+            text-align: left;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        input[type="text"]:focus {
+            outline: none;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+        }
+        
+        .btn {
+            background: linear-gradient(45deg, #b91c1c, #dc2626);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(45deg, #991b1b, #b91c1c);
+        }
+        
+        .quiz-screen {
+            display: none;
+        }
+        
+        .quiz-header {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .quiz-info h2 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+        
+        .quiz-stats {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .question-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+        
+        .question-number {
+            color: #fbbf24;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+        
+        .question-text {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+        
+        .options {
+            display: grid;
+            gap: 15px;
+        }
+        
+        .option {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid transparent;
+            border-radius: 10px;
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .option:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .option.selected {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: #fbbf24;
+            box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.3);
+        }
+        
+        .option-letter {
+            background: #fbbf24;
+            color: #dc2626;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .results-screen {
+            display: none;
+            text-align: center;
+        }
+        
+        .results-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+        }
+        
+        .score-display {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #fbbf24;
+            margin: 20px 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .review-section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        .review-question {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .review-question:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .review-header {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #fbbf24;
+        }
+        
+        .answer-status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        
+        .correct {
+            background: #10b981;
+            color: white;
+        }
+        
+        .incorrect {
+            background: #ef4444;
+            color: white;
+        }
+        
+        .answer-explanation {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-style: italic;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .quiz-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .quiz-stats {
+                justify-content: center;
+            }
+            
+            .navigation {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .score-display {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Login Screen -->
+        <div id="loginScreen" class="login-screen">
+            <div class="login-card">
+                <h1>🎓 CBT Quiz</h1>
+                <p>Ujian Bahasa Indonesia<br>Kelas 4 - Bab 3</p>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="studentName">Nama Siswa:</label>
+                        <input type="text" id="studentName" name="studentName" required placeholder="Masukkan nama lengkap">
+                    </div>
+                    <button type="submit" class="btn">Mulai Ujian</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quizScreen" class="quiz-screen">
+            <div class="quiz-header">
+                <div class="quiz-info">
+                    <h2>Ujian Bahasa Indonesia</h2>
+                    <p>Selamat datang, <span id="studentNameDisplay"></span>!</p>
+                </div>
+                <div class="quiz-stats">
+                    <div class="stat-item">
+                        <span class="stat-number" id="currentQuestion">1</span>
+                        <span class="stat-label">dari 20</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="timeRemaining">30:00</span>
+                        <span class="stat-label">waktu</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-number">Soal <span id="questionNum">1</span></div>
+                <div class="question-text" id="questionText"></div>
+                <div class="options" id="optionsContainer"></div>
+            </div>
+
+            <div class="navigation">
+                <button class="btn btn-secondary" id="prevBtn" onclick="previousQuestion()">← Sebelumnya</button>
+                <button class="btn" id="nextBtn" onclick="nextQuestion()">Selanjutnya →</button>
+                <button class="btn" id="finishBtn" onclick="finishQuiz()" style="display: none;">Selesai</button>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="resultsScreen" class="results-screen">
+            <div class="results-card">
+                <h1>🎉 Ujian Selesai!</h1>
+                <p>Selamat <span id="finalStudentName"></span>!</p>
+                <div class="score-display" id="finalScore">0</div>
+                <p>dari 20 soal</p>
+                <button class="btn" onclick="showReview()">Lihat Pembahasan</button>
+                <button class="btn btn-secondary" onclick="restartQuiz()" style="margin-left: 15px;">Ulangi Ujian</button>
+            </div>
+
+            <div id="reviewSection" class="review-section" style="display: none;">
+                <h2 style="text-align: center; margin-bottom: 25px; color: #fbbf24;">📚 Pembahasan Soal</h2>
+                <div id="reviewContent"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Bank soal lengkap
+        const questionBank = [
+            {
+                question: "Lampu lalu lintas yang berguna untuk memberi petunjuk kepada pemakai jalan untuk berhati-hati berwarna....",
+                options: ["putih", "merah", "kuning", "hijau"],
+                correct: 2,
+                explanation: "Lampu kuning pada lampu lalu lintas berfungsi sebagai peringatan untuk berhati-hati dan bersiap-siap berhenti."
+            },
+            {
+                question: "Kalimat berikut yang menggunakan tanda koma dengan tepat adalah....",
+                options: [
+                    "Ruang baca, dan ruang rapat berada di lantai tiga",
+                    "Bayu, Indra, dan Jojo pergi ke pantai",
+                    "Bu Sulis, berangkat ke kantor pukul 08.00",
+                    "Karena kesiangan, Olga terlambat, tiba di sekolah"
+                ],
+                correct: 1,
+                explanation: "Tanda koma digunakan untuk memisahkan unsur-unsur dalam suatu perincian atau pembilangan. Pilihan B menggunakan koma dengan tepat untuk memisahkan nama-nama orang."
+            },
+            {
+                question: "Sekolah mendorong siswanya agar gemar membaca. Lawan kata gemar adalah....",
+                options: ["senang sekali", "giat sekali", "malas sekali", "ramai sekali"],
+                correct: 2,
+                explanation: "Gemar berarti suka atau senang melakukan sesuatu. Lawan katanya adalah malas, yang berarti tidak suka atau enggan melakukan sesuatu."
+            },
+            {
+                question: "Dani membunyikan bel sepedanya, Bang Darwo membunyikan klakson sepeda motornya. Makna kata klakson pada kalimat di atas yaitu....",
+                options: [
+                    "topi pelindung kepala yang dibuat dari bahan yang tahan benturan",
+                    "lampu berwarna merah, kuning, dan hijau yang dipasang di perempatan jalan",
+                    "alat yang dibunyikan dengan listrik pada kendaraan bermotor",
+                    "cakram yang dapat menghentikan kecepatan sepeda motor"
+                ],
+                correct: 2,
+                explanation: "Klakson adalah alat yang dipasang pada kendaraan bermotor untuk mengeluarkan bunyi sebagai tanda peringatan."
+            },
+            {
+                question: "Apabila kata cermin diberi awalan 'ber-', maka kata berimbuhannya menjadi....",
+                options: ["bercermin", "bercemin", "becermin", "bercerminkan"],
+                correct: 0,
+                explanation: "Kata 'cermin' + awalan 'ber-' = 'bercermin' yang berarti melihat bayangan diri di cermin."
+            },
+            {
+                question: "Kita dapat berlayar ke mana saja selama cuaca mendukung. Pada kamus, kata berlayar dapat kita cari pada kata....",
+                options: ["layarkan", "layar", "berdayar", "pelayaran"],
+                correct: 1,
+                explanation: "Dalam kamus, kata berimbuhan dicari berdasarkan kata dasarnya. Kata 'berlayar' kata dasarnya adalah 'layar'."
+            },
+            {
+                question: "Contoh pernyataan persetujuan adalah....",
+                options: [
+                    "Pendapat itu tidak sesuai",
+                    "Menurut kami, rambu lalu lintas harus diperbaiki secara berkala",
+                    "Saya sependapat bahwa pengguna jalan wajib menaati rambu lalu lintas",
+                    "Saya cukup sependapat"
+                ],
+                correct: 2,
+                explanation: "Pernyataan persetujuan menunjukkan bahwa kita setuju dengan pendapat orang lain. Kata 'sependapat' menunjukkan persetujuan yang jelas."
+            },
+            {
+                question: "Menurut saya, salah satu faktor rendahnya minat membaca adalah kurangnya motivasi. Kalimat tersebut berisi....",
+                options: ["ajakan", "sanggahan", "argumen", "perintah"],
+                correct: 2,
+                explanation: "Kalimat tersebut berisi argumen karena menyampaikan pendapat atau alasan tentang suatu masalah dengan kata 'menurut saya'."
+            },
+            {
+                question: "Maura dan Ita hanya bisa bertatapan saat keduanya terkunci di ruang UKS. Imbuhan ber-an pada kata bertatapan mempunyai makna....",
+                options: ["memiliki", "melakukan", "saling", "mendapatkan"],
+                correct: 2,
+                explanation: "Imbuhan ber-an pada kata 'bertatapan' bermakna saling, yaitu saling menatap atau melihat satu sama lain."
+            },
+            {
+                question: "Badu berusaha sekuat tenaga untuk memenangkan lomba lari tahun ini. Awalan ber- pada kalimat tersebut dimaknai sebagai....",
+                options: [
+                    "menyatakan jumlah",
+                    "melakukan perbuatan mengenai diri sendiri",
+                    "melakukan tindakan",
+                    "berada dalam keadaan"
+                ],
+                correct: 2,
+                explanation: "Awalan ber- pada kata 'berusaha' bermakna melakukan tindakan atau aktivitas."
+            },
+            {
+                question: "Tempat yang digunakan orang untuk membaca dan meminjam buku adalah....",
+                options: ["laboratorium", "perpustakaan", "koperasi", "toko buku"],
+                correct: 1,
+                explanation: "Perpustakaan adalah tempat yang menyediakan koleksi buku untuk dibaca dan dipinjam oleh masyarakat."
+            },
+            {
+                question: "Berikut beberapa ungkapan yang digunakan saat berargumentasi, kecuali....",
+                options: [
+                    "menurut pendapatku",
+                    "saya kurang setuju, menurut saya",
+                    "aku sependapat denganmu, karena",
+                    "jagalah tindakan kita"
+                ],
+                correct: 3,
+                explanation: "Ungkapan 'jagalah tindakan kita' bukan ungkapan untuk berargumentasi, melainkan ungkapan perintah atau nasihat."
+            },
+            {
+                question: "Kalimat berikut mengandung kata berimbuhan ber-, kecuali....",
+                options: [
+                    "Paman Dodi bekerja di kantor pemerintah kota",
+                    "Zeva dan Anya belajar menari tradisional dan modern",
+                    "Ibu Sri membeli beras sebanyak 20 kg",
+                    "Kakakku berlibur dengan teman-teman sekolahnya"
+                ],
+                correct: 2,
+                explanation: "Kata 'beras' bukan kata berimbuhan ber-, melainkan kata dasar yang kebetulan diawali huruf 'ber'."
+            },
+            {
+                question: "Kemarin kami bersepeda bersama-sama. Awalan ber- pada kata yang dicetak miring memiliki makna....",
+                options: ["melakukan kegiatan", "himpunan", "memiliki", "mengerjakan"],
+                correct: 0,
+                explanation: "Awalan ber- pada kata 'bersepeda' bermakna melakukan kegiatan, yaitu kegiatan mengendarai sepeda."
+            },
+            {
+                question: "Tiara (santai) di teras sambil minum teh. Bentuk kata dalam kurung yang tepat adalah....",
+                options: ["bersantai", "menyantai", "tersantai", "bersantaikan"],
+                correct: 0,
+                explanation: "Kata yang tepat adalah 'bersantai' yang berarti melakukan kegiatan santai atau rileks."
+            },
+            {
+                question: "Perhatikan kata-kata berikut! (1) bersayap (2) berlarut (3) berbadan (4) berburu. Awalan ber- yang bermakna memiliki ditunjukkan oleh nomor....",
+                options: ["(1) dan (2)", "(2) dan (4)", "(1) dan (3)", "(3) dan (4)"],
+                correct: 2,
+                explanation: "Kata 'bersayap' dan 'berbadan' menggunakan awalan ber- yang bermakna memiliki (memiliki sayap, memiliki badan)."
+            },
+            {
+                question: "Fia dan Sulis tetap tidak menyukai kegiatan olahraga. Kata tanya untuk menanyakan alasan yang sesuai dengan kalimat tersebut adalah....",
+                options: [
+                    "Siapakah yang belum gemar olahraga?",
+                    "Mengapa mereka tidak suka olahraga?",
+                    "Kapan mereka suka olahraga?",
+                    "Di manakah mereka olahraga?"
+                ],
+                correct: 1,
+                explanation: "Kata tanya 'mengapa' digunakan untuk menanyakan alasan atau sebab mengapa Fia dan Sulis tidak menyukai olahraga."
+            }
+        ];
+
+        // Variabel global
+        let currentQuestions = [];
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let studentName = '';
+        let timeLeft = 1800; // 30 menit
+        let timer;
+
+        // Fungsi untuk mengacak array
+        function shuffleArray(array) {
+            const newArray = [...array];
+            for (let i = newArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+            }
+            return newArray;
+        }
+
+        // Fungsi login
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            studentName = document.getElementById('studentName').value.trim();
+            if (studentName) {
+                startQuiz();
+            }
+        });
+
+        // Fungsi memulai quiz
+        function startQuiz() {
+            // Pilih 20 soal acak
+            const shuffledQuestions = shuffleArray(questionBank);
+            currentQuestions = shuffledQuestions.slice(0, 20);
+            
+            // Acak pilihan jawaban untuk setiap soal
+            currentQuestions = currentQuestions.map(q => ({
+                ...q,
+                originalOptions: [...q.options],
+                originalCorrect: q.correct,
+                shuffledIndices: shuffleArray([0, 1, 2, 3]),
+                options: shuffleArray([0, 1, 2, 3]).map(i => q.options[i]),
+                correct: null // akan dihitung ulang
+            }));
+
+            // Hitung ulang indeks jawaban yang benar
+            currentQuestions.forEach(q => {
+                q.correct = q.shuffledIndices.indexOf(q.originalCorrect);
+            });
+
+            userAnswers = new Array(20).fill(null);
+            currentQuestionIndex = 0;
+
+            document.getElementById('studentNameDisplay').textContent = studentName;
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('quizScreen').style.display = 'block';
+
+            startTimer();
+            displayQuestion();
+        }
+
+        // Fungsi timer
+        function startTimer() {
+            timer = setInterval(() => {
+                timeLeft--;
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                document.getElementById('timeRemaining').textContent = 
+                    `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    finishQuiz();
+                }
+            }, 1000);
+        }
+
+        // Fungsi menampilkan soal
+        function displayQuestion() {
+            const question = currentQuestions[currentQuestionIndex];
+            document.getElementById('currentQuestion').textContent = currentQuestionIndex + 1;
+            document.getElementById('questionNum').textContent = currentQuestionIndex + 1;
+            document.getElementById('questionText').textContent = question.question;
+
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+
+            question.options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'option';
+                optionDiv.onclick = () => selectOption(index);
+                
+                if (userAnswers[currentQuestionIndex] === index) {
+                    optionDiv.classList.add('selected');
+                }
+
+                optionDiv.innerHTML = `
+                    <div class="option-letter">${String.fromCharCode(65 + index)}</div>
+                    <div>${option}</div>
+                `;
+                
+                optionsContainer.appendChild(optionDiv);
+            });
+
+            // Update tombol navigasi
+            document.getElementById('prevBtn').style.display = currentQuestionIndex === 0 ? 'none' : 'inline-block';
+            document.getElementById('nextBtn').style.display = currentQuestionIndex === 19 ? 'none' : 'inline-block';
+            document.getElementById('finishBtn').style.display = currentQuestionIndex === 19 ? 'inline-block' : 'none';
+        }
+
+        // Fungsi memilih jawaban
+        function selectOption(index) {
+            userAnswers[currentQuestionIndex] = index;
+            
+            // Update tampilan pilihan
+            const options = document.querySelectorAll('.option');
+            options.forEach((option, i) => {
+                option.classList.toggle('selected', i === index);
+            });
+        }
+
+        // Fungsi navigasi
+        function nextQuestion() {
+            if (currentQuestionIndex < 19) {
+                currentQuestionIndex++;
+                displayQuestion();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                displayQuestion();
+            }
+        }
+
+        // Fungsi menyelesaikan quiz
+        function finishQuiz() {
+            clearInterval(timer);
+            
+            // Hitung skor
+            let score = 0;
+            userAnswers.forEach((answer, index) => {
+                if (answer === currentQuestions[index].correct) {
+                    score++;
+                }
+            });
+
+            document.getElementById('finalStudentName').textContent = studentName;
+            document.getElementById('finalScore').textContent = score;
+            
+            document.getElementById('quizScreen').style.display = 'none';
+            document.getElementById('resultsScreen').style.display = 'block';
+        }
+
+        // Fungsi menampilkan pembahasan
+        function showReview() {
+            const reviewContent = document.getElementById('reviewContent');
+            reviewContent.innerHTML = '';
+
+            currentQuestions.forEach((question, index) => {
+                const userAnswer = userAnswers[index];
+                const isCorrect = userAnswer === question.correct;
+                
+                const reviewDiv = document.createElement('div');
+                reviewDiv.className = 'review-question';
+                
+                const correctAnswerText = question.options[question.correct];
+                const userAnswerText = userAnswer !== null ? question.options[userAnswer] : 'Tidak dijawab';
+                
+                reviewDiv.innerHTML = `
+                    <div class="review-header">
+                        Soal ${index + 1} 
+                        <span class="answer-status ${isCorrect ? 'correct' : 'incorrect'}">
+                            ${isCorrect ? '✓ Benar' : '✗ Salah'}
+                        </span>
+                    </div>
+                    <p><strong>Pertanyaan:</strong> ${question.question}</p>
+                    <p><strong>Jawaban Anda:</strong> ${userAnswerText}</p>
+                    <p><strong>Jawaban Benar:</strong> ${correctAnswerText}</p>
+                    <div class="answer-explanation">
+                        <strong>Pembahasan:</strong> ${question.explanation}
+                    </div>
+                `;
+                
+                reviewContent.appendChild(reviewDiv);
+            });
+
+            document.getElementById('reviewSection').style.display = 'block';
+        }
+
+        // Fungsi mengulang quiz
+        function restartQuiz() {
+            // Reset semua variabel
+            currentQuestions = [];
+            currentQuestionIndex = 0;
+            userAnswers = [];
+            studentName = '';
+            timeLeft = 1800;
+            
+            // Reset tampilan
+            document.getElementById('resultsScreen').style.display = 'none';
+            document.getElementById('reviewSection').style.display = 'none';
+            document.getElementById('loginScreen').style.display = 'flex';
+            document.getElementById('studentName').value = '';
+            
+            // Clear timer jika masih berjalan
+            if (timer) {
+                clearInterval(timer);
+            }
+        }
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9949c2dd56424b1b',t:'MTc2MTQ3OTY5MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
